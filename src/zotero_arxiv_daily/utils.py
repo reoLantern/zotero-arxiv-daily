@@ -139,7 +139,7 @@ def glob_match(path:str, pattern:str) -> bool:
     re_pattern = glob.translate(pattern,recursive=True)
     return re.match(re_pattern, path) is not None
 
-def send_email(config:DictConfig, html:str) -> bool:
+def send_email(config: DictConfig, html: str) -> bool:
     sender = config.email.sender
     receiver = config.email.receiver
     password = config.email.sender_password
