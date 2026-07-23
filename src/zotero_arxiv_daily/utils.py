@@ -167,7 +167,7 @@ def send_email(config: DictConfig, html: str) -> bool:
             try:
                 server = smtplib.SMTP(smtp_server, smtp_port)
             except Exception as e:
-                logger.warning(f"Failed to connect to SMTP server. Email not sent. {e}")
+                logger.warning(f"Failed to connect to SMTP server: {e}")
                 return False
 
     try:
@@ -180,5 +180,5 @@ def send_email(config: DictConfig, html: str) -> bool:
     finally:
         try:
             server.quit()
-        except Exception:
-            pass
+        except Exception as e:
+            logger.debug(f"Failed to close SMTP connection: {e}")
