@@ -186,6 +186,16 @@ def test_send_email_falls_back_to_plain(config, monkeypatch):
     assert len(sent) == 1
 
 
+def test_send_email_connection_failure_returns_false(config, monkeypatch):
+    class StubSMTP_Fails:
+        def __init__(self, *a, **kw):
+            raise OSError("Network is unreachable")
+
+    monkeypatch.setattr(smtplib, "SMTP", StubSMTP_Fails)
+    monkeypatch.setattr(smtplib, "SMTP_SSL", StubSMTP_Fails)
+    assert send_email(config, "<html>down</html>") is False
+
+
 # ---------------------------------------------------------------------------
 # extract_tex_code_from_tar
 # ---------------------------------------------------------------------------
