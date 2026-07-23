@@ -136,7 +136,7 @@ def extract_markdown_from_pdf(file_path:str) -> str:
     return pymupdf4llm.to_markdown(file_path,use_ocr=False,header=False,footer=False,ignore_code=True)
 
 def glob_match(path:str, pattern:str) -> bool:
-    re_pattern = glob.translate(pattern,recursive=True)
+    re_pattern = glob.translate(pattern, recursive=True)
     return re.match(re_pattern, path) is not None
 
 def send_email(config: DictConfig, html: str) -> bool:
